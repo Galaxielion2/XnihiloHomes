@@ -43,3 +43,5 @@ CREATE TABLE request_items (
 
 INSERT INTO admins (username, password)
 VALUES ('admin', '1234');
+
+SHOW TABLES;
