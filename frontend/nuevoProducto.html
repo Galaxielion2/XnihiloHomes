@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuevo Producto</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<header class="site-header">
+    <a class="logo" href="index.html">Xnihilo<span>.homes</span></a>
+    <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="producto.html">Admin</a>
+        <a href="login.html">Login</a>
+
+        <div class="cart-dropdown">
+            <button class="cart-button" type="button">Solicitudes (<span id="cart-count">0</span>) ▾</button>
+            <div class="cart-menu" id="cart-preview">
+                <p>No hay solicitudes todavía.</p>
+            </div>
+        </div>
+
+        <div class="language-selector">
+            <button class="language-button" type="button">🌐 <span>Idioma</span> ▾</button>
+            <div class="language-menu">
+                <a href="#" data-lang="en">English</a>
+                <a href="#" data-lang="es">Español</a>
+                <a href="#" data-lang="pt">Português</a>
+            </div>
+        </div>
+    </nav>
+</header>
+<section class="section">
+    <h1>Nuevo Listado</h1>
+    <form id="product-form" class="form panel">
+    <input type="text" id="name" placeholder="Nombre del listado" required>
+    <select id="type" required>
+        <option value="">Seleccione tipo</option>
+        <option value="Property">Property</option>
+        <option value="Service">Service</option>
+    </select>
+    <input type="text" id="category" placeholder="Categoría" required>
+    <input type="number" id="price" placeholder="Precio" required>
+    <input type="text" id="location" placeholder="Ubicación" required>
+    <input type="number" id="reservation_amount" placeholder="Monto de reserva" required>
+    <input type="text" id="image_url" placeholder="URL de imagen" required>
+    <select id="status" required>
+        <option value="Active">Active</option>
+        <option value="Inactive">Inactive</option>
+    </select>
+    <textarea id="description" placeholder="Descripción" required></textarea>
+    <button class="btn" type="submit">Guardar</button>
+    <div id="form-message"></div>
+</form>
+</section>
+<footer class="footer">
+    <p><strong>Xnihilo Homes</strong> — Real estate listings and property services marketplace.</p>
+    <p><a href="#">Terms and Conditions</a> | <a href="#">Privacy Policy</a></p>
+</footer>
+<script src="js/api.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/language.js"></script>
+<script src="js/product-form.js"></script>
+</body>
+</html>
