@@ -28,7 +28,7 @@ def get_products():
 
 @app.route("/api/products/<int:product_id>", methods=["GET"])
 def get_product(product_id):
-    product = query_db("SELECT * FROM products WHERE id = ?", [product_id], one=True)
+    product = query_db("SELECT * FROM products WHERE id = %s", [product_id], one=True)
     if product is None:
         return jsonify({"error": "Product not found"}), 404
     return jsonify(product)
@@ -46,7 +46,7 @@ def create_product():
         """
         INSERT INTO products
         (name, type, category, price, location, description, image_url, status, reservation_amount)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
         """,
         [
             data["name"],
@@ -60,23 +60,23 @@ def create_product():
             float(data["reservation_amount"]),
         ],
     )
-    product = query_db("SELECT * FROM products WHERE id = ?", [product_id], one=True)
+    product = query_db("SELECT * FROM products WHERE id = %s", [product_id], one=True)
     return jsonify(product), 201
 
 @app.route("/api/products/<int:product_id>", methods=["PUT"])
 def update_product(product_id):
     data = request.get_json() or {}
 
-    existing = query_db("SELECT * FROM products WHERE id = ?", [product_id], one=True)
+    existing = query_db("SELECT * FROM products WHERE id = %s", [product_id], one=True)
     if existing is None:
         return jsonify({"error": "Product not found"}), 404
 
     execute_db(
         """
         UPDATE products
-        SET name = ?, type = ?, category = ?, price = ?, location = ?,
-            description = ?, image_url = ?, status = ?, reservation_amount = ?
-        WHERE id = ?
+        SET name = %s, type = %s, category = %s, price = %s, location = %s,
+            description = %s, image_url = %s, status = %s, reservation_amount = %s
+        WHERE id = %s
         """,
         [
             data.get("name", existing["name"]),
@@ -91,16 +91,16 @@ def update_product(product_id):
             product_id,
         ],
     )
-    product = query_db("SELECT * FROM products WHERE id = ?", [product_id], one=True)
+    product = query_db("SELECT * FROM products WHERE id = %s", [product_id], one=True)
     return jsonify(product)
 
 @app.route("/api/products/<int:product_id>", methods=["DELETE"])
 def delete_product(product_id):
-    existing = query_db("SELECT * FROM products WHERE id = ?", [product_id], one=True)
+    existing = query_db("SELECT * FROM products WHERE id = %s", [product_id], one=True)
     if existing is None:
         return jsonify({"error": "Product not found"}), 404
 
-    execute_db("DELETE FROM products WHERE id = ?", [product_id])
+    execute_db("DELETE FROM products WHERE id = %s", [product_id])
     return jsonify({"message": "Product deleted successfully"})
 
 @app.route("/api/login", methods=["POST"])
@@ -110,7 +110,7 @@ def login():
     password = data.get("password", "")
 
     admin = query_db(
-        "SELECT id, username FROM admins WHERE username = ? AND password = ?",
+        "SELECT id, username FROM admins WHERE username = %s AND password = %s",
         [username, password],
         one=True,
     )
@@ -135,7 +135,7 @@ def create_request():
     request_id = execute_db(
         """
         INSERT INTO customer_requests (customer_name, customer_email, total_reservation)
-        VALUES (?, ?, ?)
+        VALUES ( %s, %s, %s)
         """,
         [customer_name, customer_email, total_reservation],
     )
@@ -144,7 +144,7 @@ def create_request():
         execute_db(
             """
             INSERT INTO request_items (request_id, product_id, product_name, reservation_amount)
-            VALUES (?, ?, ?, ?)
+            VALUES ( %s, %s, %s, %s)
             """,
             [
                 request_id,
