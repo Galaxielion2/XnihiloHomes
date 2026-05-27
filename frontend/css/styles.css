@@ -44,7 +44,7 @@ a {
 
 .nav a,
 .nav button {
-    color: white;
+    color: #0f172a !important;
     background: transparent;
     border: none;
     cursor: pointer;
@@ -74,7 +74,7 @@ a {
     top: 42px;
     min-width: 260px;
     background-color: white;
-    color: #1f2937;
+    color: #0f172a !important;
     border-radius: 10px;
     box-shadow: 0 12px 30px rgba(0,0,0,0.18);
     z-index: 1000;

@@ -1,3 +1,8 @@
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
 import pymysql
 
 DB_HOST = "xnihilo-homes-db.cpusyuq42c2l.us-east-1.rds.amazonaws.com"
@@ -7,10 +12,10 @@ DB_NAME = "xnihilo_homes"
 
 def get_db():
     connection = pymysql.connect(
-        host=DB_HOST,
-        user=DB_USER,
-        password=DB_PASSWORD,
-        database=DB_NAME,
+        host=os.getenv("DB_HOST"),
+        user=os.getenv("DB_USER"),
+        password=os.getenv("DB_PASSWORD"),
+        database=os.getenv("DB_NAME"),
         cursorclass=pymysql.cursors.DictCursor
     )
     return connection
