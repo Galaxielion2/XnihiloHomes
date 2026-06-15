@@ -1,35 +1,8 @@
-// Carrito simple usando localStorage. Suficiente para demostrar la lógica del proyecto.
-function getCart() {
-    return JSON.parse(localStorage.getItem("xnihiloCart")) || [];
-}
-
-function saveCart(cart) {
-    localStorage.setItem("xnihiloCart", JSON.stringify(cart));
-    updateCartPreview();
-}
-
-function addToCart(product) {
-    const cart = getCart();
-    cart.push(product);
-    saveCart(cart);
-    alert("Producto agregado al carrito");
-}
-
-function updateCartPreview() {
-    const cart = getCart();
-    const count = document.getElementById("cart-count");
-    const preview = document.getElementById("cart-preview");
-
-    if (count) count.textContent = cart.length;
-
-    if (preview) {
-        if (cart.length === 0) {
-            preview.innerHTML = "<p>No hay solicitudes todavía.</p>";
-        } else {
-            preview.innerHTML = cart.slice(0, 3).map(item => `<p>${item.name}</p>`).join("") +
-                '<a class="btn" href="carrito.html">Ver carrito</a>';
-        }
-    }
-}
-
+const CART_KEY = "xnihilo_cart";
+function getCart(){ return JSON.parse(localStorage.getItem(CART_KEY) || "[]"); }
+function saveCart(cart){ localStorage.setItem(CART_KEY, JSON.stringify(cart)); updateCartPreview(); }
+function addToCart(product){ const cart=getCart(); if(!cart.some(item=>Number(item.id)===Number(product.id))){ cart.push(product); saveCart(cart); alert("Producto agregado a solicitudes."); } else { alert("Este producto ya está en solicitudes."); }}
+function removeFromCart(id){ saveCart(getCart().filter(item=>Number(item.id)!==Number(id))); if(location.pathname.includes("carrito")) renderCartPage(); }
+function clearCart(){ saveCart([]); }
+function updateCartPreview(){ const count=document.getElementById("cart-count"); const preview=document.getElementById("cart-preview"); const cart=getCart(); if(count) count.textContent=cart.length; if(preview){ preview.innerHTML = cart.length ? cart.slice(0,4).map(item=>`<div class="cart-row"><span>${item.name}</span><strong>$${Number(item.reservation_amount).toLocaleString()}</strong></div>`).join("") + `<p><a class="btn" href="carrito.html">Ver solicitudes</a></p>` : "<p>No hay solicitudes todavía.</p>"; }}
 document.addEventListener("DOMContentLoaded", updateCartPreview);

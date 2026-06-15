@@ -1,57 +1,25 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Xnihilo Homes | Inicio</title>
-    <link rel="stylesheet" href="css/styles.css">
-</head>
-<body>
+<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Xnihilo Homes</title><link rel="icon" type="image/svg+xml" href="images/favicon.svg"><link rel="stylesheet" href="css/styles.css"></head><body>
 <header class="site-header">
-    <a class="logo" href="index.html">Xnihilo<span>.homes</span></a>
-    <nav class="nav">
-        <a href="index.html">Home</a>
-        <a href="producto.html">Admin</a>
-        <a href="login.html">Login</a>
-        <a href="carrito.html">Carrito</a>
-
-        <div class="cart-dropdown">
-            <button class="cart-button" type="button">Solicitudes (<span id="cart-count">0</span>) ▾</button>
-            <div class="cart-menu" id="cart-preview">
-                <p>No hay solicitudes todavía.</p>
-            </div>
-        </div>
-
-        <div class="language-selector">
-            <button class="language-button" type="button">🌐 <span>Idioma</span> ▾</button>
-            <div class="language-menu">
-                <a href="#" data-lang="en">English</a>
-                <a href="#" data-lang="es">Español</a>
-                <a href="#" data-lang="pt">Português</a>
-            </div>
-        </div>
-    </nav>
-</header>
-<section class="hero">
-    <h1>Find, reserve and improve real estate assets with Xnihilo Homes.</h1>
-    <p>Catálogo de propiedades, rentas, servicios legales, contratistas y apoyo inmobiliario.</p>
-    <div class="hero-actions">
-        <a class="btn" href="#catalog">Ver Catálogo</a>
-        <a class="btn secondary" href="login.html">Admin Login</a>
+  <a class="logo" href="index.html"><img src="images/logo.svg" alt="Xnihilo Homes Logo"></a>
+  <nav class="nav">
+    <a href="index.html" data-i18n="home">Inicio</a>
+    <a href="producto.html" data-i18n="admin">Admin</a>
+    <a href="login.html" data-i18n="login">Login</a>
+    <div class="cart-dropdown">
+      <button class="cart-button" type="button"><span data-i18n="cart">Solicitudes</span> (<span id="cart-count">0</span>) ▾</button>
+      <div class="cart-menu" id="cart-preview"><p>No hay solicitudes todavía.</p></div>
     </div>
-</section>
-
-<section class="section" id="catalog">
-    <h2 class="section-title">Available Listings</h2>
-    <div id="product-grid" class="product-grid"></div>
-</section>
-<footer class="footer">
-    <p><strong>Xnihilo Homes</strong> — Marketplace de propiedades y servicios inmobiliarios.</p>
-    <p><a href="#">Términos y Condiciones</a> | <a href="#">Política de Privacidad</a></p>
-</footer>
-<script src="js/api.js"></script>
-<script src="js/cart.js"></script>
-<script src="js/language.js"></script>
-<script src="js/main.js"></script>
-</body>
-</html>
+    <div class="language-selector">
+      <button class="language-button" type="button">🌐 <span>Español</span> ▾</button>
+      <div class="language-menu">
+        <a href="#" data-lang="en">English</a>
+        <a href="#" data-lang="es">Español</a>
+        <a href="#" data-lang="pt">Português</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<section class="hero"><h1 data-i18n="heroTitle">Encuentra, reserva y mejora activos inmobiliarios con Xnihilo Homes.</h1><p data-i18n="heroText">Un marketplace para propiedades, rentas, servicios legales, contratistas, renovaciones y soporte inmobiliario.</p><div class="hero-actions"><a class="btn" href="#catalog">View Catalog</a><a class="btn secondary" href="login.html">Admin Login</a></div></section>
+<section class="section" id="catalog"><h2 class="section-title" data-i18n="catalog">Listados disponibles</h2><div class="toolbar"><input id="search-input" placeholder="Buscar por nombre, ubicación o descripción"><select id="type-filter"><option value="">Todos</option><option value="Property">Property</option><option value="Service">Service</option></select></div><div id="product-grid" class="product-grid"></div></section>
+<footer class="footer"><p><strong>Xnihilo Homes</strong> — Real estate listings and property services marketplace.</p><p><a href="terms.html">Terms and Conditions</a> | <a href="privacy.html">Privacy Policy</a></p></footer>
+<script src="js/api.js"></script><script src="js/cart.js"></script><script src="js/language.js"></script><script src="js/main.js"></script></body></html>

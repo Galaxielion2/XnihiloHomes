@@ -1,27 +1,7 @@
-// Selector visual de idioma. No traduce toda la página, solo cambia el texto del botón.
-document.addEventListener("DOMContentLoaded", function () {
-    const languageLinks = document.querySelectorAll(".language-menu a");
-    const languageButtonText = document.querySelector(".language-button span");
-    const savedLanguage = localStorage.getItem("selectedLanguage") || "es";
-
-    function updateLanguage(language) {
-        languageLinks.forEach(function (link) {
-            link.classList.remove("active-language");
-            if (link.getAttribute("data-lang") === language) {
-                link.classList.add("active-language");
-                if (languageButtonText) languageButtonText.textContent = link.textContent;
-            }
-        });
-    }
-
-    updateLanguage(savedLanguage);
-
-    languageLinks.forEach(function (link) {
-        link.addEventListener("click", function (event) {
-            event.preventDefault();
-            const selectedLanguage = link.getAttribute("data-lang");
-            localStorage.setItem("selectedLanguage", selectedLanguage);
-            updateLanguage(selectedLanguage);
-        });
-    });
-});
+const translations = {
+  en: {home:"Home", admin:"Admin", login:"Login", cart:"Requests", lang:"English", heroTitle:"Find, reserve, and improve real estate assets with Xnihilo Homes.", heroText:"A marketplace for properties, rentals, legal services, contractors, home makeovers and real estate support.", catalog:"Available Listings", view:"View detail", reserve:"Reserve"},
+  es: {home:"Inicio", admin:"Admin", login:"Login", cart:"Solicitudes", lang:"Español", heroTitle:"Encuentra, reserva y mejora activos inmobiliarios con Xnihilo Homes.", heroText:"Un marketplace para propiedades, rentas, servicios legales, contratistas, renovaciones y soporte inmobiliario.", catalog:"Listados disponibles", view:"Ver detalle", reserve:"Reserva"},
+  pt: {home:"Início", admin:"Admin", login:"Login", cart:"Solicitações", lang:"Português", heroTitle:"Encontre, reserve e melhore ativos imobiliários com Xnihilo Homes.", heroText:"Um marketplace para imóveis, aluguéis, serviços jurídicos, contratados, reformas e suporte imobiliário.", catalog:"Listagens disponíveis", view:"Ver detalhe", reserve:"Reserva"}
+};
+function setLanguage(lang){ localStorage.setItem("xnihilo_lang", lang); const t=translations[lang]||translations.en; document.querySelectorAll("[data-i18n]").forEach(el=>{ const key=el.dataset.i18n; if(t[key]) el.textContent=t[key]; }); const label=document.querySelector(".language-button span"); if(label) label.textContent=t.lang; document.querySelectorAll(".language-menu a").forEach(a=>a.classList.toggle("active-language", a.dataset.lang===lang)); if(typeof renderProductGrid === "function") renderProductGrid(); }
+document.addEventListener("DOMContentLoaded",()=>{ document.querySelectorAll(".language-menu a").forEach(a=>a.addEventListener("click",e=>{e.preventDefault();setLanguage(a.dataset.lang)})); setLanguage(localStorage.getItem("xnihilo_lang")||"es"); });
