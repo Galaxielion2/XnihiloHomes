@@ -1,29 +1,8 @@
-async function loadAdminProducts() {
-    const tbody = document.getElementById("admin-products");
-    if (!tbody) return;
-
-    const products = await apiGet("/api/products");
-
-    tbody.innerHTML = products.map(product => `
-        <tr>
-            <td>${product.id}</td>
-            <td>${product.name}</td>
-            <td>${product.type}</td>
-            <td>$${Number(product.price).toLocaleString()}</td>
-            <td>$${Number(product.reservation_amount).toLocaleString()}</td>
-            <td>${product.status}</td>
-            <td>
-                <a class="btn" href="editarProducto.html?id=${product.id}">Editar</a>
-                <button class="btn secondary" onclick="deleteProduct(${product.id})">Eliminar</button>
-            </td>
-        </tr>
-    `).join("");
-}
-
-async function deleteProduct(id) {
-    if (!confirm("¿Desea eliminar este listado?")) return;
-    await apiDelete(`/api/products/${id}`);
-    loadAdminProducts();
-}
-
-document.addEventListener("DOMContentLoaded", loadAdminProducts);
+document.addEventListener("DOMContentLoaded",async()=>{
+  const table=document.getElementById("products-table"); if(!table) return; requireAdmin();
+  document.getElementById("logout-btn")?.addEventListener("click",logout);
+  try{ const products=await apiGet("/api/products");
+    table.innerHTML=`<table><thead><tr><th>ID</th><th>Nombre</th><th>Tipo</th><th>Precio</th><th>Estado</th><th>Acciones</th></tr></thead><tbody>${products.map(p=>`<tr><td>${p.id}</td><td>${p.name}</td><td>${p.type}</td><td>$${Number(p.price).toLocaleString()}</td><td>${p.status}</td><td class="actions"><a class="btn" href="editarProducto.html?id=${p.id}">Editar</a><button class="btn danger" onclick="deleteProduct(${p.id})">Eliminar</button></td></tr>`).join("")}</tbody></table>`;}
+    catch(err){ table.innerHTML=`<p class="message error">${err.message}</p>`; }
+});
+async function deleteProduct(id){ if(!confirm("¿Eliminar este producto?")) return; try{ await apiDelete(`/api/products/${id}`); location.reload(); }catch(err){ alert(err.message); } }
