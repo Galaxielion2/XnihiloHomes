@@ -1,16 +1,35 @@
-const API_BASE_URL = "";
+// Archivo central para llamar al backend Flask.
+// Como API_URL termina en /api, los otros archivos deben usar rutas como /products, /login, /requests.
+const API_URL = "http://127.0.0.1:5000/api";
 
-async function apiRequest(path, options = {}) {
-  const response = await fetch(API_BASE_URL + path, options);
-  let data = null;
-  try { data = await response.json(); } catch (_) { data = {}; }
-  if (!response.ok) {
-    throw new Error(data.error || `HTTP ${response.status}`);
-  }
-  return data;
+async function apiGet(path) {
+    const response = await fetch(API_URL + path);
+    if (!response.ok) throw new Error("HTTP " + response.status);
+    return response.json();
 }
 
-function apiGet(path) { return apiRequest(path); }
-function apiPost(path, data) { return apiRequest(path, {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(data)}); }
-function apiPut(path, data) { return apiRequest(path, {method:"PUT", headers:{"Content-Type":"application/json"}, body:JSON.stringify(data)}); }
-function apiDelete(path) { return apiRequest(path, {method:"DELETE"}); }
+async function apiPost(path, data) {
+    const response = await fetch(API_URL + path, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+    });
+    if (!response.ok) throw new Error("HTTP " + response.status);
+    return response.json();
+}
+
+async function apiPut(path, data) {
+    const response = await fetch(API_URL + path, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+    });
+    if (!response.ok) throw new Error("HTTP " + response.status);
+    return response.json();
+}
+
+async function apiDelete(path) {
+    const response = await fetch(API_URL + path, { method: "DELETE" });
+    if (!response.ok) throw new Error("HTTP " + response.status);
+    return response.json();
+}
