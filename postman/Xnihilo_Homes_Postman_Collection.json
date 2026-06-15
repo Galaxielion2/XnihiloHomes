@@ -1,0 +1,110 @@
+{
+  "info": {
+    "name": "Xnihilo Homes - Avance II",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://127.0.0.1:5000/api"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health",
+      "request": {
+        "method": "GET",
+        "url": "{{base_url}}/health"
+      }
+    },
+    {
+      "name": "Listar productos",
+      "request": {
+        "method": "GET",
+        "url": "{{base_url}}/products"
+      }
+    },
+    {
+      "name": "Ver producto por ID",
+      "request": {
+        "method": "GET",
+        "url": "{{base_url}}/products/1"
+      }
+    },
+    {
+      "name": "Crear producto",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Casa Demo\",\n  \"type\": \"Property\",\n  \"category\": \"Home Sale\",\n  \"price\": 150000,\n  \"location\": \"Tegucigalpa\",\n  \"description\": \"Producto creado desde Postman\",\n  \"image_url\": \"https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=1000&q=80\",\n  \"status\": \"Active\",\n  \"reservation_amount\": 500\n}"
+        },
+        "url": "{{base_url}}/products"
+      }
+    },
+    {
+      "name": "Actualizar producto",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Casa Demo Editada\",\n  \"price\": 155000,\n  \"status\": \"Active\"\n}"
+        },
+        "url": "{{base_url}}/products/1"
+      }
+    },
+    {
+      "name": "Eliminar producto",
+      "request": {
+        "method": "DELETE",
+        "url": "{{base_url}}/products/1"
+      }
+    },
+    {
+      "name": "Login admin",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"admin\",\n  \"password\": \"1234\"\n}"
+        },
+        "url": "{{base_url}}/login"
+      }
+    },
+    {
+      "name": "Crear solicitud",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"customer_name\": \"Cliente Demo\",\n  \"customer_email\": \"cliente@email.com\",\n  \"items\": [\n    {\n      \"id\": 1,\n      \"name\": \"Modern Family Home in Tegucigalpa\",\n      \"reservation_amount\": 1500\n    }\n  ]\n}"
+        },
+        "url": "{{base_url}}/requests"
+      }
+    }
+  ]
+}

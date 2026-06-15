@@ -1,20 +1,67 @@
-<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Nuevo producto | Xnihilo Homes</title><link rel="icon" type="image/svg+xml" href="images/favicon.svg"><link rel="stylesheet" href="css/styles.css"></head><body><header class="site-header">
-  <a class="logo" href="index.html"><img src="images/logo.svg" alt="Xnihilo Homes Logo"></a>
-  <nav class="nav">
-    <a href="index.html" data-i18n="home">Inicio</a>
-    <a href="producto.html" data-i18n="admin">Admin</a>
-    <a href="login.html" data-i18n="login">Login</a>
-    <div class="cart-dropdown">
-      <button class="cart-button" type="button"><span data-i18n="cart">Solicitudes</span> (<span id="cart-count">0</span>) ▾</button>
-      <div class="cart-menu" id="cart-preview"><p>No hay solicitudes todavía.</p></div>
-    </div>
-    <div class="language-selector">
-      <button class="language-button" type="button">🌐 <span>Español</span> ▾</button>
-      <div class="language-menu">
-        <a href="#" data-lang="en">English</a>
-        <a href="#" data-lang="es">Español</a>
-        <a href="#" data-lang="pt">Português</a>
-      </div>
-    </div>
-  </nav>
-</header><section class="section"><h1>Nuevo listado</h1><form id="product-form" class="form panel"><div class="form-grid"><input name="name" placeholder="Nombre del listado" required><select name="type" required><option value="">Seleccione tipo</option><option>Property</option><option>Service</option></select><input name="category" placeholder="Categoría" required><input name="price" type="number" step="0.01" placeholder="Precio" required><input name="location" placeholder="Ubicación" required><input name="reservation_amount" type="number" step="0.01" placeholder="Monto de reserva" required><input name="image_url" placeholder="URL de imagen" required><select name="status"><option>Active</option><option>Inactive</option></select><input name="bedrooms" type="number" placeholder="Habitaciones"><input name="bathrooms" type="number" step="0.5" placeholder="Baños"><input name="area_m2" type="number" step="0.01" placeholder="Área m²"><input name="parking_spaces" type="number" placeholder="Parqueos"><input name="asset_condition" placeholder="Condición"></div><textarea name="description" placeholder="Descripción" required></textarea><button class="btn">Guardar</button></form></section><script src="js/api.js"></script><script src="js/cart.js"></script><script src="js/language.js"></script><script src="js/auth.js"></script><script src="js/productForm.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xnihilo Homes | Nuevo Producto</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<header class="site-header">
+    <a class="logo" href="index.html">Xnihilo<span>.homes</span></a>
+    <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="producto.html">Admin</a>
+        <a href="login.html">Login</a>
+        <a href="carrito.html">Carrito</a>
+
+        <div class="cart-dropdown">
+            <button class="cart-button" type="button">Solicitudes (<span id="cart-count">0</span>) ▾</button>
+            <div class="cart-menu" id="cart-preview">
+                <p>No hay solicitudes todavía.</p>
+            </div>
+        </div>
+
+        <div class="language-selector">
+            <button class="language-button" type="button">🌐 <span>Idioma</span> ▾</button>
+            <div class="language-menu">
+                <a href="#" data-lang="en">English</a>
+                <a href="#" data-lang="es">Español</a>
+                <a href="#" data-lang="pt">Português</a>
+            </div>
+        </div>
+    </nav>
+</header>
+<main class="section">
+    <form id="product-form" class="panel form">
+        <h1 id="form-title">Nuevo listado</h1>
+        <input id="name" type="text" placeholder="Nombre del listado" required>
+        <select id="type" required>
+            <option value="">Seleccione tipo</option>
+            <option value="Property">Property</option>
+            <option value="Service">Service</option>
+        </select>
+        <input id="category" type="text" placeholder="Categoría" required>
+        <input id="price" type="number" placeholder="Precio" required>
+        <input id="location" type="text" placeholder="Ubicación" required>
+        <input id="reservation_amount" type="number" placeholder="Monto de reserva" required>
+        <input id="image_url" type="text" placeholder="URL de imagen" required>
+        <select id="status" required>
+            <option value="Active">Active</option>
+            <option value="Inactive">Inactive</option>
+        </select>
+        <textarea id="description" placeholder="Descripción" required></textarea>
+        <button class="btn" type="submit">Guardar</button>
+        <div id="form-message"></div>
+    </form>
+</main>
+<footer class="footer">
+    <p><strong>Xnihilo Homes</strong> — Marketplace de propiedades y servicios inmobiliarios.</p>
+    <p><a href="#">Términos y Condiciones</a> | <a href="#">Política de Privacidad</a></p>
+</footer>
+<script src="js/api.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/language.js"></script>
+<script src="js/nuevoProducto.js"></script>
+</body>
+</html>

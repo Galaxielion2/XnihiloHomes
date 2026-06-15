@@ -1,23 +1,59 @@
-<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Admin productos | Xnihilo Homes</title><link rel="icon" type="image/svg+xml" href="images/favicon.svg"><link rel="stylesheet" href="css/styles.css"></head><body>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xnihilo Homes | Productos</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
 <header class="site-header">
-  <a class="logo" href="index.html"><img src="images/logo.svg" alt="Xnihilo Homes Logo"></a>
-  <nav class="nav">
-    <a href="index.html" data-i18n="home">Inicio</a>
-    <a href="producto.html" data-i18n="admin">Admin</a>
-    <a href="login.html" data-i18n="login">Login</a>
-    <div class="cart-dropdown">
-      <button class="cart-button" type="button"><span data-i18n="cart">Solicitudes</span> (<span id="cart-count">0</span>) ▾</button>
-      <div class="cart-menu" id="cart-preview"><p>No hay solicitudes todavía.</p></div>
-    </div>
-    <div class="language-selector">
-      <button class="language-button" type="button">🌐 <span>Español</span> ▾</button>
-      <div class="language-menu">
-        <a href="#" data-lang="en">English</a>
-        <a href="#" data-lang="es">Español</a>
-        <a href="#" data-lang="pt">Português</a>
-      </div>
-    </div>
-  </nav>
+    <a class="logo" href="index.html">Xnihilo<span>.homes</span></a>
+    <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="producto.html">Admin</a>
+        <a href="login.html">Login</a>
+        <a href="carrito.html">Carrito</a>
+
+        <div class="cart-dropdown">
+            <button class="cart-button" type="button">Solicitudes (<span id="cart-count">0</span>) ▾</button>
+            <div class="cart-menu" id="cart-preview">
+                <p>No hay solicitudes todavía.</p>
+            </div>
+        </div>
+
+        <div class="language-selector">
+            <button class="language-button" type="button">🌐 <span>Idioma</span> ▾</button>
+            <div class="language-menu">
+                <a href="#" data-lang="en">English</a>
+                <a href="#" data-lang="es">Español</a>
+                <a href="#" data-lang="pt">Português</a>
+            </div>
+        </div>
+    </nav>
 </header>
-<section class="section"><div class="actions"><a class="btn" href="nuevoProducto.html">Agregar nuevo</a><a class="btn secondary" href="solicitudes.html">Ver solicitudes</a><button class="btn danger" id="logout-btn">Cerrar sesión</button></div><h1>Administración de productos</h1><div id="products-table" class="table-container"></div></section><footer class="footer"><p>Xnihilo Homes</p></footer>
-<script src="js/api.js"></script><script src="js/cart.js"></script><script src="js/language.js"></script><script src="js/auth.js"></script><script src="js/admin.js"></script></body></html>
+<main class="section">
+    <h1>Panel Administrativo</h1>
+    <p>Listado completo de productos. Aquí se puede editar, crear o eliminar.</p>
+    <a class="btn" href="nuevoProducto.html">Agregar nuevo</a>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th><th>Nombre</th><th>Tipo</th><th>Precio</th><th>Estado</th><th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="admin-products"></tbody>
+        </table>
+    </div>
+</main>
+<footer class="footer">
+    <p><strong>Xnihilo Homes</strong> — Marketplace de propiedades y servicios inmobiliarios.</p>
+    <p><a href="#">Términos y Condiciones</a> | <a href="#">Política de Privacidad</a></p>
+</footer>
+<script src="js/api.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/language.js"></script>
+<script src="js/producto.js"></script>
+</body>
+</html>

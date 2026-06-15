@@ -1,23 +1,54 @@
-<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Carrito | Xnihilo Homes</title><link rel="icon" type="image/svg+xml" href="images/favicon.svg"><link rel="stylesheet" href="css/styles.css"></head><body>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xnihilo Homes | Carrito</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
 <header class="site-header">
-  <a class="logo" href="index.html"><img src="images/logo.svg" alt="Xnihilo Homes Logo"></a>
-  <nav class="nav">
-    <a href="index.html" data-i18n="home">Inicio</a>
-    <a href="producto.html" data-i18n="admin">Admin</a>
-    <a href="login.html" data-i18n="login">Login</a>
-    <div class="cart-dropdown">
-      <button class="cart-button" type="button"><span data-i18n="cart">Solicitudes</span> (<span id="cart-count">0</span>) ▾</button>
-      <div class="cart-menu" id="cart-preview"><p>No hay solicitudes todavía.</p></div>
-    </div>
-    <div class="language-selector">
-      <button class="language-button" type="button">🌐 <span>Español</span> ▾</button>
-      <div class="language-menu">
-        <a href="#" data-lang="en">English</a>
-        <a href="#" data-lang="es">Español</a>
-        <a href="#" data-lang="pt">Português</a>
-      </div>
-    </div>
-  </nav>
+    <a class="logo" href="index.html">Xnihilo<span>.homes</span></a>
+    <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="producto.html">Admin</a>
+        <a href="login.html">Login</a>
+        <a href="carrito.html">Carrito</a>
+
+        <div class="cart-dropdown">
+            <button class="cart-button" type="button">Solicitudes (<span id="cart-count">0</span>) ▾</button>
+            <div class="cart-menu" id="cart-preview">
+                <p>No hay solicitudes todavía.</p>
+            </div>
+        </div>
+
+        <div class="language-selector">
+            <button class="language-button" type="button">🌐 <span>Idioma</span> ▾</button>
+            <div class="language-menu">
+                <a href="#" data-lang="en">English</a>
+                <a href="#" data-lang="es">Español</a>
+                <a href="#" data-lang="pt">Português</a>
+            </div>
+        </div>
+    </nav>
 </header>
-<section class="section"><h1>Carrito de solicitudes</h1><div id="cart-page"></div></section><footer class="footer"><p>Xnihilo Homes</p></footer>
-<script src="js/api.js"></script><script src="js/cart.js"></script><script src="js/language.js"></script><script src="js/cartPage.js"></script></body></html>
+<main class="section">
+    <section class="panel">
+        <h1>Carrito de solicitudes</h1>
+        <p>Productos o servicios seleccionados por el cliente.</p>
+        <div id="cart-list"></div>
+        <h3 id="cart-total"></h3>
+        <button id="send-request" class="btn">Enviar solicitud</button>
+        <a class="btn secondary" href="index.html">Volver al inicio</a>
+    </section>
+</main>
+<footer class="footer">
+    <p><strong>Xnihilo Homes</strong> — Marketplace de propiedades y servicios inmobiliarios.</p>
+    <p><a href="#">Términos y Condiciones</a> | <a href="#">Política de Privacidad</a></p>
+</footer>
+<script src="js/api.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/language.js"></script>
+<script src="js/carrito.js"></script>
+</body>
+</html>
