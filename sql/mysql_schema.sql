@@ -2,18 +2,18 @@ DROP DATABASE IF EXISTS xnihilo_homes;
 CREATE DATABASE xnihilo_homes CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE xnihilo_homes;
 
+-- Tabla de administradores. Para el proyecto se usa password simple.
 CREATE TABLE admins (
     id INT NOT NULL AUTO_INCREMENT,
     username VARCHAR(100) NOT NULL UNIQUE,
-    email VARCHAR(150) NULL UNIQUE,
-    password_hash VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
     full_name VARCHAR(150) DEFAULT 'Administrador',
-    role VARCHAR(30) DEFAULT 'admin',
     active BOOLEAN DEFAULT TRUE,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (id)
 ) ENGINE=InnoDB;
 
+-- Tabla principal de listados: propiedades y servicios.
 CREATE TABLE products (
     id INT NOT NULL AUTO_INCREMENT,
     name VARCHAR(150) NOT NULL,
@@ -35,18 +35,17 @@ CREATE TABLE products (
     PRIMARY KEY (id)
 ) ENGINE=InnoDB;
 
+-- Solicitudes creadas desde el carrito.
 CREATE TABLE customer_requests (
     id INT NOT NULL AUTO_INCREMENT,
     customer_name VARCHAR(120) NOT NULL,
     customer_email VARCHAR(150) NOT NULL,
-    customer_phone VARCHAR(40) NULL,
-    notes TEXT NULL,
     total_reservation DECIMAL(12,2) NOT NULL,
-    request_status VARCHAR(30) DEFAULT 'Pending',
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (id)
 ) ENGINE=InnoDB;
 
+-- Detalle de productos dentro de cada solicitud.
 CREATE TABLE request_items (
     id INT NOT NULL AUTO_INCREMENT,
     request_id INT NOT NULL,
@@ -54,19 +53,13 @@ CREATE TABLE request_items (
     product_name VARCHAR(150) NOT NULL,
     reservation_amount DECIMAL(12,2) NOT NULL,
     PRIMARY KEY (id),
-    CONSTRAINT fk_request_items_request
-        FOREIGN KEY (request_id) REFERENCES customer_requests(id)
-        ON DELETE CASCADE,
-    CONSTRAINT fk_request_items_product
-        FOREIGN KEY (product_id) REFERENCES products(id)
-        ON DELETE RESTRICT
+    FOREIGN KEY (request_id) REFERENCES customer_requests(id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
-INSERT INTO admins (username, email, password_hash, full_name)
-VALUES
-('admin', 'admin@xnihilo.homes', 'pbkdf2_sha256$260000$xnihilo_salt_2026$geNEOaR8HtHKbsB7S2orRFL5SE9pkhtbewf/a2F+iBc=', 'Administrador Principal');
+INSERT INTO admins (username, password, full_name)
+VALUES ('admin', '1234', 'Administrador Principal');
 
-INSERT INTO products 
+INSERT INTO products
 (name, type, category, price, location, description, image_url, status, reservation_amount, bedrooms, bathrooms, area_m2, parking_spaces, asset_condition)
 VALUES
 ('Modern Family Home in Tegucigalpa', 'Property', 'Home Sale', 185000, 'Tegucigalpa, Honduras', 'Spacious family home with three bedrooms, private parking, natural lighting and excellent access to main roads.', 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=1000&q=80', 'Active', 1500, 3, 2.5, 240, 2, 'Excellent'),

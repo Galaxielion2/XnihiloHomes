@@ -1,11 +1,30 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS
 from database import get_connection
+import os
 
-app = Flask(__name__)
+# Flask API para Xnihilo Homes.
+# Se mantiene simple para el proyecto de Programación Web.
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+FRONTEND_DIR = os.path.abspath(os.path.join(BASE_DIR, "..", "frontend"))
+
+app = Flask(__name__, static_folder=FRONTEND_DIR, static_url_path="")
 CORS(app)
 
-# Ruta de prueba para saber si Flask está corriendo.
+
+# -------------------- FRONTEND --------------------
+@app.route("/")
+def home():
+    return send_from_directory(FRONTEND_DIR, "index.html")
+
+
+@app.route("/<path:filename>")
+def frontend_files(filename):
+    return send_from_directory(FRONTEND_DIR, filename)
+
+
+# -------------------- PRUEBA --------------------
 @app.route("/api/health", methods=["GET"])
 def health():
     return jsonify({"status": "ok", "project": "Xnihilo Homes"})
@@ -14,11 +33,34 @@ def health():
 # -------------------- PRODUCTOS --------------------
 @app.route("/api/products", methods=["GET"])
 def get_products():
+    q = request.args.get("q", "").strip()
+    product_type = request.args.get("type", "").strip()
+    status = request.args.get("status", "").strip()
+
+    sql = "SELECT * FROM products WHERE 1=1"
+    params = []
+
+    if q:
+        sql += " AND (name LIKE %s OR category LIKE %s OR location LIKE %s)"
+        like = f"%{q}%"
+        params.extend([like, like, like])
+
+    if product_type:
+        sql += " AND type = %s"
+        params.append(product_type)
+
+    if status:
+        sql += " AND status = %s"
+        params.append(status)
+
+    sql += " ORDER BY id DESC"
+
     connection = get_connection()
     cursor = connection.cursor()
-    cursor.execute("SELECT * FROM products ORDER BY id DESC")
+    cursor.execute(sql, params)
     products = cursor.fetchall()
     connection.close()
+
     return jsonify(products)
 
 
@@ -38,9 +80,8 @@ def get_product(product_id):
 
 @app.route("/api/products", methods=["POST"])
 def create_product():
-    data = request.get_json()
+    data = request.get_json() or {}
 
-    # Validación básica para evitar guardar registros incompletos.
     required = ["name", "type", "category", "price", "location", "description", "image_url", "status", "reservation_amount"]
     for field in required:
         if field not in data or str(data[field]).strip() == "":
@@ -66,7 +107,7 @@ def create_product():
 
 @app.route("/api/products/<int:product_id>", methods=["PUT"])
 def update_product(product_id):
-    data = request.get_json()
+    data = request.get_json() or {}
 
     connection = get_connection()
     cursor = connection.cursor()
@@ -107,19 +148,23 @@ def delete_product(product_id):
     cursor.execute("DELETE FROM products WHERE id = %s", (product_id,))
     connection.commit()
     connection.close()
+
     return jsonify({"message": "Producto eliminado"})
 
 
 # -------------------- LOGIN ADMIN --------------------
 @app.route("/api/login", methods=["POST"])
 def login():
-    data = request.get_json()
+    data = request.get_json() or {}
     username = data.get("username", "")
     password = data.get("password", "")
 
     connection = get_connection()
     cursor = connection.cursor()
-    cursor.execute("SELECT id, username FROM admins WHERE username=%s AND password=%s", (username, password))
+    cursor.execute(
+        "SELECT id, username FROM admins WHERE username=%s AND password=%s",
+        (username, password)
+    )
     admin = cursor.fetchone()
     connection.close()
 
@@ -131,7 +176,7 @@ def login():
 
 @app.route("/api/register", methods=["POST"])
 def register_admin():
-    data = request.get_json()
+    data = request.get_json() or {}
     username = data.get("username", "").strip()
     password = data.get("password", "").strip()
 
@@ -150,7 +195,7 @@ def register_admin():
 # -------------------- SOLICITUDES / CARRITO --------------------
 @app.route("/api/requests", methods=["POST"])
 def create_request():
-    data = request.get_json()
+    data = request.get_json() or {}
     items = data.get("items", [])
 
     if len(items) == 0:
@@ -178,6 +223,17 @@ def create_request():
     connection.close()
 
     return jsonify({"message": "Solicitud guardada", "request_id": request_id, "total": total}), 201
+
+
+@app.route("/api/requests", methods=["GET"])
+def get_requests():
+    connection = get_connection()
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM customer_requests ORDER BY id DESC")
+    requests = cursor.fetchall()
+    connection.close()
+
+    return jsonify(requests)
 
 
 if __name__ == "__main__":
