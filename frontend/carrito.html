@@ -1,14 +1,29 @@
-<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Carrito | Xnihilo Homes</title><link rel="icon" type="image/svg+xml" href="images/favicon.svg"><link rel="stylesheet" href="css/styles.css"></head><body>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carrito | Xnihilo Homes</title>
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
 <header class="site-header">
   <a class="logo" href="index.html"><img src="images/logo.svg" alt="Xnihilo Homes Logo"></a>
   <nav class="nav">
     <a href="index.html" data-i18n="home">Inicio</a>
     <a href="producto.html" data-i18n="admin">Admin</a>
     <a href="login.html" data-i18n="login">Login</a>
+
     <div class="cart-dropdown">
-      <button class="cart-button" type="button"><span data-i18n="cart">Solicitudes</span> (<span id="cart-count">0</span>) ▾</button>
-      <div class="cart-menu" id="cart-preview"><p>No hay solicitudes todavía.</p></div>
+      <button class="cart-button" type="button">
+        <span data-i18n="cart">Solicitudes</span> (<span id="cart-count">0</span>) ▾
+      </button>
+      <div class="cart-menu" id="cart-preview">
+        <p>No hay solicitudes todavía.</p>
+      </div>
     </div>
+
     <div class="language-selector">
       <button class="language-button" type="button">🌐 <span>Español</span> ▾</button>
       <div class="language-menu">
@@ -19,5 +34,27 @@
     </div>
   </nav>
 </header>
-<section class="section"><h1>Carrito de solicitudes</h1><div id="cart-page"></div></section><footer class="footer"><p>Xnihilo Homes</p></footer>
-<script src="js/api.js"></script><script src="js/cart.js"></script><script src="js/language.js"></script><script src="js/cartPage.js"></script></body></html>
+
+<section class="section">
+  <h1>Carrito de solicitudes</h1>
+  <div class="panel">
+    <div id="cart-list"></div>
+    <h3 id="cart-total"></h3>
+    <div class="hero-actions">
+      <a class="btn secondary" href="index.html">Volver al catálogo</a>
+      <button class="btn" id="send-request" type="button">Enviar solicitud</button>
+      <button class="btn secondary" id="clear-cart" type="button">Vaciar carrito</button>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <p>Xnihilo Homes</p>
+</footer>
+
+<script src="js/api.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/language.js"></script>
+<script src="js/carrito.js"></script>
+</body>
+</html>
